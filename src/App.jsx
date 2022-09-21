@@ -2,7 +2,7 @@ import Logo from '@/assets/logo.png'
 
 function App() {
   return (
-    <main className="p-8 m-2 shadow-2xl shadow-indigo-900">
+    <main className="p-10 m-4 shadow-2xl shadow-indigo-900">
       <img
         src={Logo}
         alt="logo gerador de senhas"
@@ -16,20 +16,20 @@ function App() {
         </label>
         <div className="flex flex-col">
           <label className="pb-3">
+            <input type="checkbox" className="mx-2 border-none" />
             Letras maiúsculas
-            <input type="checkbox" className="mx-2 border-none" />
           </label>
           <label className="pb-3">
+            <input type="checkbox" className="mx-2 border-none" />
             Letras minúsculas
-            <input type="checkbox" className="mx-2 border-none" />
           </label>
           <label className="pb-3">
+            <input type="checkbox" className="mx-2 border-none" />
             Números
-            <input type="checkbox" className="mx-2 border-none" />
           </label>
           <label className="pb-3">
-            Símbolos
             <input type="checkbox" className="mx-2 border-none" />
+            Símbolos
           </label>
         </div>
         <div className="flex justify-center items-center mt-6">
@@ -38,7 +38,8 @@ function App() {
           </button>
         </div>
         <div className="flex flex-col">
-          <p className="text-white text-center mt-3">Senha gerada</p>
+          <p className='text-white mt-6 mx-auto'>Senha gerada</p>
+          <textarea className="text-white text-center"></textarea>
           <input type="text" />
         </div>
       </div>
