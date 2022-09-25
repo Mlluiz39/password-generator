@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Logo from '@/assets/logo.png'
 
 function App() {
@@ -10,31 +10,74 @@ function App() {
   const [symbol, setSymbol] = useState('')
 
   const handleLowercaseLetter = e => {
-    const alphabet = String.fromCharCode(Math.floor(Math.random() * 26) + 97)
-    setLowercaseLetter(e.target.checked ? alphabet : '')
+    const alphabetLower = [...Array(26)].map((_, i) =>
+      String.fromCharCode(i + 97)
+    )
+    const randomLower =
+      alphabetLower[Math.floor(Math.random() * alphabetLower.length)]
+    setLowercaseLetter(e.target.checked ? randomLower : '')
   }
 
   const handleUppercaseLetter = e => {
-    const alphabet = String.fromCharCode(Math.floor(Math.random() * 26) + 65)
-    setUppercaseLetter(e.target.checked ? alphabet : '')
+    const alphabetUpper = [
+      'A',
+      'B',
+      'C',
+      'D',
+      'E',
+      'F',
+      'G',
+      'H',
+      'I',
+      'J',
+      'K',
+      'L',
+      'M',
+      'N',
+      'O',
+      'P',
+      'Q',
+      'R',
+      'S',
+      'T',
+      'U',
+      'V',
+      'W',
+      'X',
+      'Y',
+      'Z',
+    ]
+    const randomUpper =
+      alphabetUpper[Math.floor(Math.random() * alphabetUpper.length)]
+    setUppercaseLetter(e.target.checked ? randomUpper : '')
   }
 
   const handleNumber = e => {
-    const number = Math.floor(Math.random() * 10)
+    const number = Math.floor(Math.random() * 10).toString()
     setNumber(e.target.checked ? number : '')
   }
 
   const handleSymbol = e => {
-    const symbol = String.fromCharCode(Math.floor(Math.random() * 15) + 33)
+    const symbol = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')']
     setSymbol(e.target.checked ? symbol : '')
   }
 
+  
+  const handleCount = [lowercaseLetter + uppercaseLetter + number + symbol]
+  let password = ''
+
   const handleGenerate = () => {
-    const data = lowercaseLetter + uppercaseLetter + number + symbol
-    setDataValue(data)
+    for (let i = 0; i <= count; i++) {
+      handleCount.forEach(() => {
+        password += handleCount[Math.floor(Math.random() * handleCount.length)]
+      })
+    }
+
+    setDataValue(password)
   }
 
   console.log(dataValue)
+  console.log(count)
 
   return (
     <main className="p-10 m-4 shadow-2xl shadow-indigo-900">
@@ -48,8 +91,8 @@ function App() {
           Quantidade de caracteres
           <input
             type="range"
-            min="6"
-            max="24"
+            min={6}
+            max={24}
             value={count}
             onChange={e => setCount(e.target.value)}
           />
@@ -65,7 +108,7 @@ function App() {
                 onChange={handleLowercaseLetter}
               />
             </label>
-            Letras maiúsculas
+            Letras minúsculas
           </div>
           <div>
             <label className="pb-3">
@@ -75,7 +118,7 @@ function App() {
                 checked={uppercaseLetter}
                 onChange={handleUppercaseLetter}
               />
-              Letras minúsculas
+              Letras maiúsculas
             </label>
           </div>
           <div>
@@ -111,7 +154,9 @@ function App() {
         </div>
         <div className="flex flex-col">
           <p className="text-white mt-6 mx-auto">Senha gerada</p>
-          <textarea className="text-white text-center"></textarea>
+          <div className="p-8 text-black border bg-white cursor-pointer">
+            <p className="flex justify-center items-center">{dataValue}</p>
+          </div>
         </div>
       </div>
     </main>
