@@ -1,63 +1,28 @@
-import { useState } from 'react'
-
 import Logo from '@/assets/logo.png'
-import { PasswordServices } from '@/services/PasswordServices'
+import generatedPassword from '@/components/utils/GeneratedPassword'
 
-let PasswordGenerate = () => {
-  let [state, setState] = useState({
-    generatedPassword: '',
-    passwordLength: 6,
-    uppercase: false,
-    lowercase: false,
-    number: false,
-    symbol: false,
-  })
 
-  const updateInput = e => {
-    setState({
-      ...state,
-      [e.target.name]: e.target.checked,
-    })
-  }
 
-  const updateCheckbox = e => {
-    setState({
-      ...state,
-      [e.target.name]: e.target.checked,
-    })
-  }
-
-  const handleFormSubmit = e => {
-    e.preventDefault()
-    let passwordObj = PasswordServices.getPasswordObj(state)
-    let thePassword = PasswordServices.generatePassword(
-      passwordObj,
-      state.passwordLength
-    )
-    console.log(thePassword)
-  }
-
+const PasswordGenerate = () => {
+ console.log(generatedPassword())
   return (
-    <main className="p-10 m-4 shadow-2xl shadow-indigo-900">
+    <main className="p-10 m-4 shadow-2xl shadow-indigo-900 bg-gradient-to-t bg-teal-500">
       <img
         src={Logo}
         alt="logo gerador de senhas"
         className="img-fluid mx-auto d-block mb-3"
       />
 
-      <form
-        className="container p-6 flex justify-center items-center flex-col"
-        onSubmit={handleFormSubmit}
-      >
+      <form className="container p-6 flex justify-center items-center flex-col">
         <div className="shadow-lg border-t-2 border-t-fuchsia-300 b py-6 px-24">
           <label className="flex flex-col">
             Quantidade de caracteres
             <input
               className="w-15 mx-auto mb-3 mt-1"
               type="number"
+              min={6}
+              max={24}
               name="passwordLength"
-              value={state.passwordLength}
-              onChange={updateInput}
             />
           </label>
           <div className="flex flex-col">
@@ -67,7 +32,6 @@ let PasswordGenerate = () => {
                   type="checkbox"
                   className="mx-2 border-none"
                   name="lowercase"
-                  onChange={updateCheckbox}
                 />
               </label>
               Letras minúsculas
@@ -78,7 +42,6 @@ let PasswordGenerate = () => {
                   type="checkbox"
                   className="mx-2 border-none"
                   name="uppercase"
-                  onChange={updateCheckbox}
                 />
                 Letras maiúsculas
               </label>
@@ -89,7 +52,6 @@ let PasswordGenerate = () => {
                   type="checkbox"
                   className="mx-2 border-none"
                   name="number"
-                  onChange={updateCheckbox}
                 />
                 Números
               </label>
@@ -100,7 +62,6 @@ let PasswordGenerate = () => {
                   type="checkbox"
                   className="mx-2 border-none"
                   name="symbol"
-                  onChange={updateCheckbox}
                 />
                 Símbolos
               </label>
@@ -115,12 +76,7 @@ let PasswordGenerate = () => {
         <div className="flex flex-col">
           <label className="text-white flex flex-col items-center mb-3 pt-6">
             Senha gerada
-            <input
-              type="text"
-              className="text-black py-8 px-24 mt-2 rounded"
-              value={state.generatedPassword}
-              onChange={updateInput}
-            />
+            <input type="text" className="text-black py-8 px-24 mt-2 rounded" />
           </label>
         </div>
       </form>
