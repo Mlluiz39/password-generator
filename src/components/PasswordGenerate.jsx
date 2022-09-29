@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import Logo from '@/assets/logo.png'
-// import { PasswordServices } from '@/services/PasswordServices'
+import { PasswordServices } from '@/services/PasswordServices'
 
 let PasswordGenerate = () => {
   let [state, setState] = useState({
@@ -29,12 +29,12 @@ let PasswordGenerate = () => {
 
   const handleFormSubmit = e => {
     e.preventDefault()
-    // let passwordObj = PasswordServices.getPasswordObj(state)
-    // let thePassword = PasswordServices.generatePassword(
-    //   passwordObj,
-    //   state.passwordLength
-    // )
-    // console.log(thePassword)
+    let passwordObj = PasswordServices.getPasswordObj(state)
+    let thePassword = PasswordServices.generatePassword(
+      passwordObj,
+      state.passwordLength
+    )
+    console.log(thePassword)
   }
 
   return (
@@ -44,7 +44,7 @@ let PasswordGenerate = () => {
         alt="logo gerador de senhas"
         className="img-fluid mx-auto d-block mb-3"
       />
-      <pre>{JSON.stringify(state)}</pre>
+
       <form
         className="container p-6 flex justify-center items-center flex-col"
         onSubmit={handleFormSubmit}
