@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 import Logo from '@/assets/logo.png'
 import { generatedPassword } from '@/utils/form.utils'
@@ -6,6 +6,8 @@ import { generatedPassword } from '@/utils/form.utils'
 const Form = () => {
   const [password, setPassword] = useState(generatedPassword())
   const [length, setLength] = useState(6)
+  const [isShowElement, isSetShowElement] = useState(false)
+
   const refHasNumber = useRef()
   const refHasSpecial = useRef()
 
@@ -18,10 +20,27 @@ const Form = () => {
         length
       )
     )
+    isSetShowElement(showElement)
+  }
+
+  const showElement = () => {
+    return (
+      <div>
+        <label className="text-white flex flex-col items-center mt-16">
+          <span className='mb-3 font-bold'>Senha gerada</span>
+          <input
+            type="text"
+            className="text-black text-center py-8 px-16 rounded"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+        </label>
+      </div>
+    )
   }
 
   return (
-    <main className="w-96 flex flex-col my-auto items-center p-10 shadow-2xl shadow-indigo-900 bg-gradient-to-t bg-teal-500">
+    <main className="w-96 flex flex-col my-auto items-center px-10 pt-8 pb-48 shadow-2xl shadow-indigo-900 bg-gradient-to-t bg-teal-500">
       <img
         src={Logo}
         alt="logo gerador de senhas"
@@ -77,16 +96,8 @@ const Form = () => {
             </button>
           </div>
         </div>
-        <div className="flex flex-col">
-          <label className="text-white flex flex-col items-center mt-3">
-            Senha gerada
-            <input
-              type="text"
-              className="text-black text-center py-8 px-16 mt-2 rounded"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-            />
-          </label>
+        <div className="flex flex-col h-10">
+         {isShowElement && showElement()}
         </div>
       </form>
     </main>
