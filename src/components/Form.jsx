@@ -21,7 +21,7 @@ const Form = () => {
   }
 
   return (
-    <main className="flex flex-col my-auto mx-auto items-center p-10 shadow-2xl shadow-indigo-900 bg-gradient-to-t bg-teal-500">
+    <main className="flex flex-col my-auto items-center p-10 shadow-2xl shadow-indigo-900 bg-gradient-to-t bg-teal-500">
       <img
         src={Logo}
         alt="logo gerador de senhas"
