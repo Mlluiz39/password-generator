@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 
 import Logo from '@/assets/logo.png'
+import Img from '@/assets/pasta.png'
 import { generatedPassword } from '@/utils/form.utils'
 
 const Form = () => {
@@ -21,19 +22,30 @@ const Form = () => {
       )
     )
     isSetShowElement(showElement)
+   
+  }
+
+  const copyPassword = () => {
+    navigator.clipboard.writeText(password)
+    alert('Password copied to clipboard')
   }
 
   const showElement = () => {
     return (
       <div>
-        <label className="text-white flex flex-col items-center mt-16">
-          <span className='mb-3 font-bold'>Senha gerada</span>
-          <input
-            type="text"
-            className="text-black text-center py-8 px-16 rounded"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-          />
+        <label className="text-white flex flex-row items-center mt-16">
+          <div>
+            <span className="mb-3 font-bold">Senha gerada</span>
+            <input
+              type="text"
+              className="text-black text-center py-8 px-16 rounded"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+            />
+          </div>
+          <div className="w-16 cursor-pointer" onClick={copyPassword}>
+            <img src={Img} alt="" />
+          </div>
         </label>
       </div>
     )
@@ -97,7 +109,7 @@ const Form = () => {
           </div>
         </div>
         <div className="flex flex-col h-10">
-         {isShowElement && showElement()}
+          {isShowElement && showElement()}
         </div>
       </form>
     </main>
