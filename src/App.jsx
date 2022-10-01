@@ -1,7 +1,12 @@
-import PasswordGenerate from './components/PasswordGenerate'
+import Form from './components/Form'
 
 function App() {
-  return <PasswordGenerate />
+  return (
+    <div className='text-center'>
+      <Form />
+    </div>
+ 
+  )
 }
 
 export default App
