@@ -1,7 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
+import { Tooltip } from '@material-tailwind/react'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import Logo from '@/assets/logo.png'
-import Img from '@/assets/pasta.png'
 import { generatedPassword } from '@/utils/form.utils'
 
 const Form = () => {
@@ -11,6 +13,16 @@ const Form = () => {
 
   const refHasNumber = useRef()
   const refHasSpecial = useRef()
+
+  const notify = () => toast.success('Copiado para area de trabalho!',{
+    position: 'top-center',
+    autoClose: 4000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  })
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -22,32 +34,41 @@ const Form = () => {
       )
     )
     isSetShowElement(showElement)
-   
   }
 
   const copyPassword = () => {
     navigator.clipboard.writeText(password)
-    alert('Password copied to clipboard')
+    notify()
   }
 
   const showElement = () => {
     return (
-      <div>
-        <label className="text-white flex flex-row items-center mt-16">
-          <div>
-            <span className="mb-3 font-bold">Senha gerada</span>
-            <input
-              type="text"
-              className="text-black text-center py-8 px-16 rounded"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-            />
-          </div>
-          <div className="w-16 cursor-pointer" onClick={copyPassword}>
-            <img src={Img} alt="" />
+      <>
+      <ToastContainer />
+        <label
+          className="text-black flex flex-col items-center mt-16 border p-3 bg-slate-100 rounded cursor-pointer"
+          onClick={copyPassword}
+        >
+          <span className="mb-3 font-bold text-blue-500">Senha gerada</span>
+          <div className="mx-auto">
+            <span className="text-2xl text-blue-700">{password}</span>
+
+            <span className="w-16 cursor-pointer">
+              <Tooltip
+                placement="bottom"
+                content="Copiar a senha"
+                animate={{
+                  mount: { scale: 1, y: 0 },
+                  unmount: { scale: 0, y: 25 },
+                }}
+                className="text-blue-500 mx-auto my-4 py-1 px-28 bg-white"
+              >
+                <p className="text-blue-500 font-bold mt-3">Clique para...</p>
+              </Tooltip>
+            </span>
           </div>
         </label>
-      </div>
+      </>
     )
   }
 
